@@ -218,6 +218,18 @@
 	 */
 	TimeShift.Date.prototype.desc = function() {
 		return "utc=" + this.utc.toUTCString() + "   local=" + utcToLocal(this.utc).toUTCString() + "   offset=" + timezoneOffset;
-	}
+	};
+
+	/**
+	 * override isDate check to ensure our mocked class is counted as Date
+	 */
+	var binding = process.binding('util');
+	binding.isDate = function(d) {
+		if (d instanceof TimeShift.Date) {
+			return true;
+		}
+
+		return false;
+	};
 
 }).call(this);
