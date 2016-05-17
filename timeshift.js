@@ -8,7 +8,7 @@
 (function() {
 
 	var root = this;
-	var OriginalDate = root.Date;
+	var OriginalDate = Date;
 
 	var TimeShift;
 	if (typeof exports !== 'undefined') {
