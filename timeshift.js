@@ -54,7 +54,7 @@
 		} else if (timezoneOffset > 0) {
 			zone = zone + "-";
 		} else {
-			return zone;
+			return zone + '+0000 (UTC)';
 		}
 		return zone + twoDigit(Math.floor(offset/60)) + twoDigit(offset%60);
 	}
@@ -140,6 +140,14 @@
 			this.utc = realLocalToUtc(new OriginalDate(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6]));
 			break;
 		}
+
+		Object.defineProperty(this, 'utc', {
+			enumerable: false
+		});
+
+		Object.defineProperty(this, '__previouslyConstructedByTimeShift', {
+			enumerable: false
+		});
 	}
 	
 	TimeShift.Date.prototype.getDate = function() { return utcToLocal(this.utc).getUTCDate(); }
